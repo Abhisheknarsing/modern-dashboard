@@ -117,6 +117,104 @@ export interface RegisterFormProps {
   isLoading?: boolean;
 }
 
+// Commerce types
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  stock: number;
+  sku: string;
+  image?: string;
+  status: 'active' | 'inactive' | 'draft';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Order {
+  id: string;
+  orderNumber: string;
+  customerId: string;
+  customerName: string;
+  customerEmail: string;
+  items: OrderItem[];
+  total: number;
+  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded';
+  shippingAddress: Address;
+  billingAddress: Address;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface OrderItem {
+  id: string;
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: number;
+  total: number;
+}
+
+export interface Address {
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+}
+
+// CRM types
+export interface Contact {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  position?: string;
+  status: 'active' | 'inactive';
+  tags: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Lead {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  source: string;
+  status: 'new' | 'contacted' | 'qualified' | 'proposal' | 'won' | 'lost';
+  value?: number;
+  notes?: string;
+  assignedTo?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// DataTable types
+export interface DataTableColumn<T> {
+  key: keyof T;
+  label: string;
+  sortable?: boolean;
+  render?: (value: any, row: T) => React.ReactNode;
+}
+
+export interface DataTableProps<T> {
+  data: T[];
+  columns: DataTableColumn<T>[];
+  searchable?: boolean;
+  sortable?: boolean;
+  pagination?: boolean;
+  pageSize?: number;
+  onRowClick?: (row: T) => void;
+  loading?: boolean;
+}
+
 // API response types
 export interface ApiResponse<T> {
   data?: T;
